@@ -96,7 +96,8 @@ public class MealOrderAgent extends Agent {
     private class RequestPerformer extends Behaviour {
         private AID bestRestaurant; // The agent who provides the best meal
         private String bestMeal;  // The best provided meal
-        private int repliesCount = 0; // The counter of replies from agents
+        private int courseRepliesCount = 0; // The counter of replies from course agents
+        private int mealRepliesCount = 0; // The counter of replies from restaurant agents
         private MessageTemplate courseInformationMessageTemplate; // The template to receive replies from course agents
         private MessageTemplate mealInformationMessageTemplate; // The template to receive replies from restaurant agents
         private String courseName; // The name of the course that is found for target date. This is used for storing the reply of course agents.
@@ -149,8 +150,8 @@ public class MealOrderAgent extends Agent {
                             courseName = courseInformationReply.getContent();
                         }
 
-                        repliesCount++;
-                        if (repliesCount >= courseAgents.length) {
+                        courseRepliesCount++;
+                        if (courseRepliesCount >= courseAgents.length) {
                             // We received all replies
                             step = 3;
                         }
@@ -175,8 +176,8 @@ public class MealOrderAgent extends Agent {
                             }
                         }
 
-                        repliesCount++;
-                        if (repliesCount >= restaurantAgents.length) {
+                        mealRepliesCount++;
+                        if (mealRepliesCount >= restaurantAgents.length) {
                             // We received all replies
                             step = 4;
                         }
